@@ -4,10 +4,13 @@ add_theme_support('post-formats');
 add_theme_support('post-thumbnails');
 add_theme_support('menus');
 
+
+
 add_filter('get_twig', 'add_to_twig');
 add_filter('timber_context', 'add_to_context');
 
 add_action('wp_enqueue_scripts', 'load_scripts');
+add_filter('show_admin_bar', '__return_false'); //REMOVE WP ADMIN BAR
 
 define('THEME_URL', get_template_directory_uri());
 function add_to_context($data){
@@ -33,34 +36,26 @@ function load_scripts(){
     wp_enqueue_script('jquery');
 }
 
-add_action( 'init', 'create_posttype' );
-function create_posttype() {
-    register_post_type( 'videos',
-                       array(
-    'labels' => array(
-    'name' => __( 'Videos' ),
-                      'singular_name' => __( 'Video' )
-),
-'public' => true,
-'menu_icon' => 'dashicons-video-alt',
-'has_archive' => true,
-'rewrite' => array('slug' => 'videos'),
-)
-);
-    register_post_type( 'colunistas',
-                       array(
-    'labels' => array(
-    'name' => __( 'Colunistas' ),
-                      'singular_name' => __( 'Colunista' )
-),
-'public' => true,
-'menu_icon' => 'dashicons-groups',
-'has_archive' => true,
-'rewrite' => array('slug' => 'colunistas'),
-));
+/* esta function cria um segundo botão para o comment com a class=button para o foundation, precisa de apagar o outro botão no CSS */
+function so_comment_button() {
 
+  echo '<input name="submit" class="button tiny" type="submit" value="' . __( 'Post Comment', 'textdomain' ) . '" />';
 
 }
+
+add_action( 'comment_form', 'so_comment_button' );
+
+/*----------EDITOR STYLE------------*/
+
+function my_theme_add_editor_styles() {
+    $font_url = str_replace( ',', '%2C', '//fonts.googleapis.com/css?family=Source+Sans+Pro|Oxygen' );
+    add_editor_style( $font_url );
+}
+add_action( 'after_setup_theme', 'my_theme_add_editor_styles' );
+
+add_editor_style();
+/*-----------------------------------*/
+
 
 function arphabet_widgets_init() {
     register_sidebar( array(
@@ -83,31 +78,19 @@ function arphabet_widgets_init() {
 
 add_action( 'widgets_init', 'arphabet_widgets_init' );
 
-Timber::add_route('noticias', function($params){
-    $query = 'Timber::get_context();';
-    Timber::load_template('archive.php', $query);
-});
 
-Timber::add_route('videos', function($params){
-    $query = 'Timber::get_context();';
-    Timber::load_template('videos.php', $query);
-});
+/*----------COSTUMIZER------------*/
 
-function Vermelhovivo_customize_register( $wp_customize ) {
-$wp_customize->add_setting('destaques_position', array());
-$wp_customize->add_control('destaques_position', array(
-  'label'      => __('Disposição destaques', 'Vermelhovivo'),
-  'section'    => 'layout',
-  'settings'   => 'destaques_position',
-  'type'       => 'radio',
-  'choices'    => array(
-    'grade'   => 'Grade',
-    'linha'  => 'Linha',
-  ),
-));
-$wp_customize->add_section('layout' , array(
-    'title' => __('Destaques','Vermelhovivo'),
-));
+function crac_customize_register( $wp_customize ) {
 
 }
-add_action( 'customize_register', 'Vermelhovivo_customize_register' );
+add_action( 'customize_register', 'crac_customize_register' );
+
+$args = array(
+  'flex-width'    => false,
+  'width'         => 1067,
+  'flex-height'    => false,
+  'height'        => 300,
+  'default-image' => get_template_directory_uri() . '/images/header.jpg',
+);
+add_theme_support( 'custom-header', $args );

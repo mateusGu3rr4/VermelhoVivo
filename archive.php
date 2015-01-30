@@ -36,6 +36,9 @@
 		}
 
 		$data['posts'] = Timber::get_posts();
-                $blog_args = 'post_type=colunistas';
-                $data['colunistas'] = Timber::get_posts($blog_args);
+
+		$data['pagination'] = Timber::get_pagination();
+
+		$data['widgets'] = Timber::get_widgets('sidebar');
+
 		Timber::render($templates, $data);

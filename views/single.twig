@@ -1,38 +1,133 @@
 {% extends "base.twig" %}
 
 {% block content %}
-<div id="single">
+<!-- ----------- CONTENT -------------- -->
+<div class="row content-wrap">
+  <div class="large-9 columns">
+<!-- -----------TOP 3 - DESTAQUES -------------- -->
+    <div class="row destaques">
+      <div class="medium-4 columns">
+
+
+        <a href="{{site.link}}" class="tiny button expand radius destaque">
+          <i class="fa fa-users fa-2x"></i>
+          <p>Fet Soci</p>
+        </a>
+      </div>
+      <div class="medium-4 columns">
+        <a href="{{site.link}}" class="tiny button expand radius destaque">
+          <i class="fa fa-calendar fa-2x"></i>
+          <p>Agenda</p>
+        </a>
+      </div>
+      <div class="medium-4 columns">
+        <a href="{{site.link}}" class="tiny button expand radius destaque">
+          <i class="fa fa-home fa-2x"></i>
+          <p>Lloga</p>
+        </a>
+      </div>
+    </div>
+
+  </br>
+
+<!-- -----------COLUMNA POSTS-------------- -->
+
+  <!--previous and nex post -->
   <div class="row">
-    <article class="post-type-{{post.post_type}} large-9 columns" id="post-{{post.ID}}">
-      <section class="article-content">
-        <h2 class="article-h2">{{post.title}}</h2>
+    <div class="large-12 columns">
+      <div class="soft-detail">
+        <a class="left" href="{{post.prev.link}}">
+          <p><span class="hide-for-small-only">
+          <i class="fa  fa-long-arrow-left"></i>
+          {{post.prev.title}}</span> <span class="show-for-small-only">
+          <i class="fa  fa-long-arrow-left fa-2x"></i></span></p>
+        </a>
 
-        <p class="blog-author">
-	  <span>By</span><a href="{{post.author.path}}"> {{ post.author.name }} </a><span>&bull;</span> {{ post.display_date }}
-        </p>
+        <a class="right" href="{{post.next.link}}">
+          <p><span class="hide-for-small-only">{{post.next.title}}
+          <i class="fa  fa-long-arrow-right"></i>
+        </span> <span class="show-for-small-only"><i class="fa  fa-long-arrow-right fa-2x"></i></span></p>
+        </a>
+      </div>
+    </div>
+  </div>
 
-        <div class="article-body">
-	  {{post.content}}
-        </div>
-      </section>
-      <section class="comments hide">
-        <div class="responses">
-	  {% for cmt in post.get_comments() %}
-	  {% include "comment.twig" with {comment:cmt} %}
-	  {% endfor %}
-        </div>
-        <div class="respond">
-	  <h3 class="h2">Comentários</h3>
-          <div class="hide">
-	    {{ comment_form }}
+  <div class="row">
+    <div class="large-12 columns blog-col">
+
+<!-- ----------- SINGLE -------------- -->
+      <div class="single">
+
+        <section class="article-content">
+          <h2 class="article-h2">{{post.title}}</h2>
+          <div class="article-body">
+            {{post.content}}
+          </div>
+        </section>
+
+        <div class="row single-foot">
+          <div class="medium-6 columns">
+            {% if post.terms('tags') %}
+            <p>Publicat dins de:<span><div class="tags">
+              <ul class="tag-list">
+                {% for term in post.terms('tags') %}
+                <li><a href="{{term.link}}">{{term.name}}</a></li>
+                {% endfor %}
+              </ul>
+            </div></span></p>
+            {% else %}
+            {% endif %}
+          </div>
+          <div class="medium-6 columns show-for-medium-up">
+            {{ function('kc_add_social_share') }} <!--social sharing plugin-->
           </div>
         </div>
-      </section>
+      </div>
 
-    </article>
-    <aside class="large-3 columns">
-      {{widgets}}
-    </aside>
-  </div> <!-- /content-wrapper -->
+    </div>
+  </div>
+  <br/>
+
+<!-- -----------COMENTARIS-------------- -->
+<section class="comments small-12 large-12 columns">
+  <div class="respond">
+    {{ comment_form }}
+  </div>
+</section>
+
 </div>
+
+
+<!-- ----------- SIDE BAR -------------- -->
+<aside class="small-12 large-3 columns">
+  <div class="sidebar">
+    <div class="widget">
+      {{function('get_search_form')}}
+      <div class="social">
+        <p>Segueix l’actualitat</p>
+        <ul>
+          <a><li class="#"><i class="fa fa-rss-square fa-2x"></i></li></a>
+          <a><li class="#"><i class="fa fa-twitter-square fa-2x"></i></li></a>
+          <a><li class="#"><i class="fa fa-facebook-square fa-2x"></i></li></a>
+          <a><li class="#"><i class="fa fa-envelope-square fa-2x"></i></li></a>
+        </ul>
+      </div>
+      <br/>
+      <div class="horari">
+        <p>Horari secretaria<br/><span class="info">
+          Dilluns a Dijous de 18 a 21h<br/>
+          (divendres no hi ha atenció al públic)<br/>
+          C/ Sant Joan nº 1<br/>
+          Telf: 93.588.33.77<br/>
+          Mail: info@crac.cat </span>
+        </p>
+      </div>
+    </div>
+
+    {{widgets}}
+  </div>
+</aside>
+
+</div> <!-- /content-wrapper -->
+
 {% endblock %}

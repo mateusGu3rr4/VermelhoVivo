@@ -1,148 +1,132 @@
 {% extends "base.twig" %}
 
 {% block content %}
-<section id="destaques">
-  <div class="row">
-    {% if estrutura.destaques_position == 'grade' %}
-    {% for destaque in destaques | slice(0, 1) %}
-    <div class="large-6 columns">
-      <div class="post main">
-        <a href="{{destaque.permalink}}">
-          <img src="{{destaque.thumbnail.src}}" class="">
-          <div class="post-content">
-
-            <h2 class="title">{{destaque.title}}</h2>
-            <div class="content">
-              <p class="preview">{{destaque.get_preview(40,true,'[continuar lendo]') }}</p>
-            </div>
-          </div>
+<!-- ----------- CONTENT -------------- -->
+<div class="row content-wrap">
+  <div class="large-9 columns">
+<!-- -----------TOP 3 - DESTAQUES -------------- -->
+    <div class="row destaques">
+      <div class="medium-4 columns">
+        <a href="{{site.link}}/blog" class="tiny button expand radius destaque">
+          <i class="fa fa-users fa-2x"></i>
+          <p>Fet Soci</p>
+        </a>
+      </div>
+      <div class="medium-4 columns">
+        <a href="{{site.link}}" class="tiny button expand radius destaque">
+          <i class="fa fa-calendar fa-2x"></i>
+          <p>Agenda</p>
+        </a>
+      </div>
+      <div class="medium-4 columns">
+        <a href="{{site.link}}" class="tiny button expand radius destaque">
+          <i class="fa fa-home fa-2x"></i>
+          <p>Lloga</p>
         </a>
       </div>
     </div>
-    {% endfor %}
-    <div class="large-6 columns">
-      <ul class="small-block-grid-2">
-        {% for destaque in destaques | slice(1, 4) %}
-        <li>
-          <div class="post olders">
-            <a href="{{destaque.permalink}}">
-              {% if destaque.thumbnail.src %}
-              <img src="{{destaque.thumbnail.src}}" class="" alt="Thumbnail para {{destaque.title}}">
-              <div class="post-content">
-                <h3 class="title">{{destaque.title}}</h3>
-              </div>
-              {% else %}
-              <div class="post-content noimg">
-                <h3 class="title-only">{{destaque.title}}</h3>
-                <a href="{{destaque.permalink}}" class="more">ver mais</a>
-              </div>
-              {% endif %}
-            </a>
-        </li>
-        {% endfor %}
-      </ul>
-          </div>
-          {% else %}
-          <div class="large-12 columns">
-            <ul class="small-block-grid-4">
-              {% for destaque in destaques [:4] %}
-              <li>
-                <div class="post olders">
-                  <a href="{{destaque.permalink}}">
-                    {% if destaque.thumbnail.src %}
-                    <img src="{{destaque.thumbnail.src}}" class="" alt="Thumbnail para {{destaque.title}}">
-                    <div class="post-content">
-                      <h3 class="title">{{destaque.title}}</h3>
-                    </div>
-                    {% else %}
-                    <div class="post-content noimg">
-                      <h3 class="title-only">{{destaque.title}}</h3>
-                      <a href="{{destaque.permalink}}" class="more">ver mais</a>
-                    </div>
-                    {% endif %}
-                  </a>
-              </li>
-              {% endfor %}
-            </ul>
+<!-- -----------COLUMNA BLOG-------------- -->
+    <div class="row">
+      <div class="large-12 columns blog-col">
+        <ul class="blog-list">
+          {% for post in posts | slice(0,9) %}
+          <li>
+            <div class="blog-teasers">
+
+              <div class="row">
+                <div class="medium-12 columns">
+                  <h3><a href="{{ post.permalink }}">{{ post.title }}</a></h3>
+
+                  {% if post.thumbnail.src %}
+                  <p class="tease-text">
+                    <img src="{{post.thumbnail.src|resize(300, 300)}}" class="my-thumb-class" alt="Image for {{post.title}}" />{{post.get_preview(80,false,'Continua llegint')}}
+
+                  </p>
+                  {% else %}
+                  <p class="tease-text">
+                    {{post.get_preview(80,false,'Continua llegint')}}
+
+                  </p>
+                  {% endif %}
+
                 </div>
-    {% endif %}
-          </div>
-</section>
 
-<section id="videos">
-  <div class="row">
-    <div class="large-12 columns">
-      <h2 class="section-title">Videos</h2>
-    </div>
-  </div>
-  <div class="row">
-    <div class="large-12 columns">
-      <ul class="small-block-grid-3">
-        {% for video in videos | slice(0,3) %}
-        <li>
-          <div class="flex-video">
-            {{video.get_field('link_video')}}
-          </div>
-        </li>
-        {% endfor %}
-    </div>
-  </div>
+              </div> <br/>
 
-  <div class="row">
-    <div class="large-2 large-offset-10 columns text-right">
-      <a href="/videos">ver todos</a>
-    </div>
-  </div>
-</section>
+              <div class="blog-teaser-foot">
 
-<section id="social">
-  <div class="row">
-    <div class="large-12 columns">
-      <h2 class="section-title">Últimas notícias</h2>
-    </div>
-  </div>
-  <div class="row" data-equalizer>
-    <div class="large-5 columns" data-equalizer-watch>
-      <div class="last-news">
-        <ul class="list-last-news">
-          {% for noticia in posts %}
-          <li class="news">
-            <a href="{{noticia.link}}">
-              <h3 class="title {{ cycle(['even','odd'],loop.index) }}">{{noticia.title}}</h3>
-            </a>
+                {% if post.terms('tags') %}
+                <p>Publicat dins de:<span><div class="tags">
+                  <ul class="tag-list">
+                    {% for term in post.terms('tags') %}
+                    <li><a href="{{term.link}}">{{term.name}}</a></li>
+                    {% endfor %}
+                  </ul>
+                </div></span></p>
+                {% else %}
+                {% endif %}
+
+              </div>
+
+            </div> <br/>
           </li>
+          {% else %}
+          <li>Index_ Ho sentim, però la pàgina que heu sol·licitat no s'ha trobat.</li>
           {% endfor %}
         </ul>
-      </div>
+
+        <!-- -----------PAGINATION -------------- -->
+        <div class="pagination-centered">
+          <ul class="pagination" role="menubar" aria-label="Pagination">
+            {% if pagination.prev %}
+            <li class="arrow unavailable" aria-disabled="true"><a href="{{pagination.prev.link}}"  class="prev {{pagination.prev.link|length ? '' : 'invisible'}}">&laquo;</a></li>
+            {% endif %}
+            {% for page in pagination.pages %}
+            {% if page.link %}
+            <li><a href="{{page.link}}" class="{{page.class}}">{{page.title}}</a></li>
+            {% else %}
+            <li class="current"><a href="">{{page.title}}</a></li>
+            {% endif %}
+            {% endfor %}
+            {% if pagination.next %}
+            <li class="arrow"><a href="{{pagination.next.link}}" class="next {{pagination.next.link|length ? '' : 'invisible'}}">&raquo;</a></li>
+            {% endif %}
+          </ul>
+        </div>
+      </br>
     </div>
 
-    <div class="large-5 columns" data-equalizer-watch>
-
-      <div class="tweets" data-equalizer-watch>
-        <ul class="example-orbit" data-orbit>
-          {{widgets}}
-        </ul>
-        <a href="#" class="hashtag">#vermelho<span class="red">vivo</span></a>
-      </div>
-    </div>
-    <div class="large-2 columns" data-equalizer-watch>
-      <div class="social-links" data-equalizer-watch>
-        <ul class="links-list">
-          <li class="link">
-            <a href="#">
-              <i class="fa fa-twitter-square"></i> seguir</a>
-          </li>
-          <li class="link">
-            <a href="#">
-              <i class="fa fa-facebook-square"></i> curtir</a>
-          </li>
-          <li class="link">
-            <a href="#">
-              <i class="fa fa-youtube"></i> assistir</a>
-          </li>
-        </ul>
-      </div>
-    </div>
   </div>
-</section>
+</div>
+
+<!-- ----------- SIDEBAR -------------- -->
+<aside class="small-12 large-3 columns">
+  <div class="sidebar">
+    <div class="widget">
+      {{function('get_search_form')}}
+      <div class="social">
+        <p>Segueix l’actualitat</p>
+        <ul>
+          <a><li class="#"><i class="fa fa-rss-square fa-2x"></i></li></a>
+          <a><li class="#"><i class="fa fa-twitter-square fa-2x"></i></li></a>
+          <a><li class="#"><i class="fa fa-facebook-square fa-2x"></i></li></a>
+          <a><li class="#"><i class="fa fa-envelope-square fa-2x"></i></li></a>
+        </ul>
+      </div>
+      <br/>
+      <div class="horari">
+        <p>Horari secretaria<br/><span class="info">
+          Dilluns a Dijous de 18 a 21h<br/>
+          (divendres no hi ha atenció al públic)<br/>
+          C/ Sant Joan nº 1<br/>
+          Telf: 93.588.33.77<br/>
+          Mail: info@crac.cat </span>
+        </p>
+      </div>
+    </div>
+
+    {{widgets}}
+  </div>
+</aside>
+</div>
 {% endblock %}

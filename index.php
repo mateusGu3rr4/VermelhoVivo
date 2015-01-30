@@ -18,21 +18,15 @@
 	}
 	$context = Timber::get_context();
 	$context['posts'] = Timber::get_posts();
-        $args = 'category_name=destaques';
-	$context['destaques'] = Timber::get_posts($args);
-        $context['estrutura'] = get_theme_mods();
+	$context['pagination'] = Timber::get_pagination(5);
 
-        $movie_args = 'post_type=videos';
-	$context['videos'] = Timber::get_posts($movie_args);
+	$context['widgets'] = Timber::get_widgets('sidebar');
 
-        $blog_args = 'post_type=colunistas';
-	$context['colunistas'] = Timber::get_posts($blog_args);
 
-        $last_news_args = 'cat=-4';
-	$context['ultimas_noticias'] = Timber::get_posts($last_news_args);
-        $context['widgets'] = Timber::get_widgets('footer');
+
 	$templates = array('index.twig');
 	if (is_home()){
 		array_unshift($templates, 'home.twig');
 	}
+
 	Timber::render($templates, $context);

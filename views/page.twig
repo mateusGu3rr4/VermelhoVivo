@@ -1,20 +1,78 @@
 {% extends "base.twig" %}
 
 {% block content %}
-<div class="row">
-  <div class="large-12 columns">
+<div class="row content-wrap">
+  <div class="large-9 columns">
 
-  <article class="post-type-{{post.post_type}}" id="post-{{post.ID}}">
-    <section class="article-content">
-      <h1 class="article-h1">{{post.title}}</h1>
-
-      <div class="article-body">
-	{{post.content}}
+    <!-- -----------TOP 3 - DESTAQUES -------------- -->
+    <div class="row destaques">
+      <div class="medium-4 columns">
+        <a href="{{site.link}}" class="tiny button expand radius destaque">
+          <i class="fa fa-users fa-2x"></i>
+          <p>Fet Soci</p>
+        </a>
       </div>
-    </section>
+      <div class="medium-4 columns">
+        <a href="{{site.link}}" class="tiny button expand radius destaque">
+          <i class="fa fa-calendar fa-2x"></i>
+          <p>Agenda</p>
+        </a>
+      </div>
+      <div class="medium-4 columns">
+        <a href="{{site.link}}" class="tiny button expand radius destaque">
+          <i class="fa fa-home fa-2x"></i>
+          <p>Lloga</p>
+        </a>
+      </div>
+    </div>
+    <!-- -----------COLUMNA PAGE-------------- -->
+    <div class="row">
+      <div class="large-12 columns">
+        <article class="post-type-{{post.post_type}} blog-teasers" id="post-{{post.ID}}">
+          <section class="article-content">
+            <h1 class="article-h1">{{post.title}}</h1>
 
-  </article>
-  </div>
+            <div class="article-body">
+              {{post.content}}
+            </div>
+          </section>
+
+        </article>
+      </div>
+    </div>
+  </br>
 </div>
 
+
+
+<!-- ----------- SIDEBAR -------------- -->
+<aside class="small-12 large-3 columns">
+  <div class="sidebar">
+    <div class="widget">
+      {{function('get_search_form')}}
+      <div class="social">
+        <p>Segueix l’actualitat</p>
+        <ul>
+          <a><li class="#"><i class="fa fa-rss-square fa-2x"></i></li></a>
+          <a><li class="#"><i class="fa fa-twitter-square fa-2x"></i></li></a>
+          <a><li class="#"><i class="fa fa-facebook-square fa-2x"></i></li></a>
+          <a><li class="#"><i class="fa fa-envelope-square fa-2x"></i></li></a>
+        </ul>
+      </div>
+      <br/>
+      <div class="horari">
+        <p>Horari secretaria<br/><span class="info">
+          Dilluns a Dijous de 18 a 21h<br/>
+          (divendres no hi ha atenció al públic)<br/>
+          C/ Sant Joan nº 1<br/>
+          Telf: 93.588.33.77<br/>
+          Mail: info@crac.cat </span>
+        </p>
+      </div>
+    </div>
+    {{widgets}}
+  </div>
+</aside>
+
+</div>
 {% endblock %}
