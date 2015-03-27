@@ -70,10 +70,10 @@
   <!-- ----------- FOOTER -------------- -->
   <div class="row footer-wrap">
     <div class="large-12 columns">
-      <footer id="footer">
+      <footer  id="footer">
         {% include 'footer.twig' %}
+        {{ function('wp_footer') }}
       </footer>
-      {{ function('wp_footer') }}
     </div>
   </div>
 

@@ -326,11 +326,18 @@ div.taxonomia{
     h3{
       color:$white-smoke;
     }
-    a{color:$white-smoke;}
+    h5>a{color:$white-smoke;}
+    h5>a:hover{color:$destaque-color;}
 
     .social{
       a{color:$white-smoke;}
       a:hover{color:$destaque-color;}
+    }
+    .license{
+      margin-bottom: .25rem;
+      font-size:90%;
+      a{color:$destaque-color;}
+      a:hover{color:$destaque-color; border-bottom:1px solid $destaque-color;}
     }
   }
 
