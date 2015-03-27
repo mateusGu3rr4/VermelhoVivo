@@ -2,25 +2,25 @@
 
 {% block content %}
 <!--Content-->
-<h3></h3>
+<h2></h2>
 <div class="row content-wrap">
   <div class="large-9 columns">
     <!--Top 3 - Destaques-->
     <div class="row destaques">
       <div class="medium-4 columns">
-        <a href="{{site.link}}" class="tiny button expand radius destaque">
+        <a href="{{site.link}}/associat" class="tiny button expand radius destaque">
           <i class="fa fa-users fa-2x"></i>
           <p>Fet Soci</p>
         </a>
       </div>
       <div class="medium-4 columns">
-        <a href="{{site.link}}" class="tiny button expand radius destaque">
+        <a href="{{site.link}}/agenda" class="tiny button expand radius destaque">
           <i class="fa fa-calendar fa-2x"></i>
           <p>Agenda</p>
         </a>
       </div>
       <div class="medium-4 columns">
-        <a href="{{site.link}}" class="tiny button expand radius destaque">
+        <a href="{{site.link}}/us-sales" class="tiny button expand radius destaque">
           <i class="fa fa-home fa-2x"></i>
           <p>Lloga</p>
         </a>
@@ -30,47 +30,67 @@
       <div class="row">
         <div class="large-12 columns blog-col">
         </br>
-          <h3>{{title}}</h3>
+          <h2>{{title}}</h2>
           </br>
           <ul class="blog-list">
             {% for post in posts | slice(0,9) %}
             <li>
               <div class="blog-teasers">
 
-                <div class="row">
-                  <div class="medium-12 columns">
-                    <h3><a href="{{ post.permalink }}">{{ post.title }}</a></h3>
+                <section>
+                    <h2><a href="{{ post.permalink }}">{{ post.title }}</a></h2>
 
                     {% if post.thumbnail.src %}
                     <p class="tease-text">
                       <img src="{{post.thumbnail.src|resize(300, 300)}}" class="my-thumb-class" alt="Image for {{post.title}}" />{{post.get_preview(80,false,'Continua llegint')}}
+
                     </p>
                     {% else %}
                     <p class="tease-text">
                       {{post.get_preview(80,false,'Continua llegint')}}
+
                     </p>
                     {% endif %}
-                  </div>
+                  </section><br/>
 
-                </div> <br/>
+                <div class="row blog-teaser-foot">
+                  <div class="small-12 medium-6 columns">
 
+                    {% if post.terms('categories') %}
+                    <div class="taxonomia">
+                      <p class="soft-detail">Publicat dins de:</p>
+                      <ul class="categories-list">
+                        {% for term in post.terms('categories') %}
+                        <li><a href="{{term.link}}">{{term.name}}</a></li>
+                        {% endfor %}
+                      </ul>
+                    </div>
+                    {% else %}
+                    {% endif %}
 
-                <div class="row">
-                  <div class="medium-12 columns blog-teaser-foot">
-                    <p>Publicat dins de:<span><div class="tags">
+                    {% if post.terms('tags') %}
+                    <div class="taxonomia">
+
+                      <p class="soft-detail">Etiquetat com a:</p>
                       <ul class="tag-list">
                         {% for term in post.terms('tags') %}
                         <li><a href="{{term.link}}">{{term.name}}</a></li>
                         {% endfor %}
                       </ul>
-                    </div></span></p>
+                    </div>
+                    {% else %}
+                    {% endif %}
                   </div>
+                  <div class="small-12 medium-6 columns share">
+                    {{ function('kc_add_social_share') }} <!--social sharing plugin-->
+                  </div>
+
                 </div>
 
               </div> <br/>
             </li>
             {% else %}
-            <p>Ho sentim, però la pàgina que heu sol·licitat no s'ha trobat.</p>
+            <li>Index_ Ho sentim, però la pàgina que heu sol·licitat no s'ha trobat.</li>
             {% endfor %}
           </ul>
 

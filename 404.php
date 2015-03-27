@@ -9,6 +9,6 @@
  * @since    Timber 0.1
  */
 
-	$context = Timber::get_context();
-	$context['widgets'] = Timber::get_widgets('sidebar');
-	Timber::render('404.twig', $context);
+	$data = Timber::get_context();
+	$data['widgets'] = Timber::get_widgets('sidebar');
+	Timber::render('404.twig', $data);

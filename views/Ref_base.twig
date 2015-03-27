@@ -1,0 +1,87 @@
+<!doctype html>
+<!--[if lt IE 7]><html class="no-js ie ie6 lt-ie9 lt-ie8 lt-ie7" {{site.language_attributes}}> <![endif]-->
+<!--[if IE 7]><html class="no-js ie ie7 lt-ie9 lt-ie8" {{site.language_attributes}}> <![endif]-->
+<!--[if IE 8]><html class="no-js ie ie8 lt-ie9" {{site.language_attributes}}> <![endif]-->
+<!--[if gt IE 8]><!--><html class="no-js" {{site.language_attributes}}> <!--<![endif]-->
+<html>
+  <head>
+    <meta charset="{{site.charset}}">
+    <title>{{wp_title}}</title>
+    <meta name="description" content="{{site.description}}">
+    <link rel="stylesheet" href="{{site.theme.link}}/style.css" type="text/css" media="screen">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="pingback" href="{{site.pingback_url}}">
+    {{function('wp_head')}}
+    <script src="{{site.theme.link}}/bower_components/modernizr/modernizr.js"></script>
+  </head>
+  <body>
+
+    <div class="off-canvas-wrap" data-offcanvas>
+
+
+      <div class="inner-wrap">
+        <aside class="left-off-canvas-menu">
+          <ul class="off-canvas-list">
+            <li>
+              <label class="left-off-canvas-toggle">
+                Colunistas <i class="fa fa-times right"></i>
+              </label>
+            </li>
+            {% for colunista in colunistas%}
+            <li>
+              <a href="{{colunista.get_field('blog_url')}}">
+                <img src="{{TimberImage(colunista.get_field('avatar')).src|resize(50, 50)}}"> {{colunista.title}}
+              </a>
+            </li>
+            {% endfor %}
+          </ul>
+        </aside>
+
+        <header id="header">
+            <div class="contain-to-grid fixed">
+              <nav class="top-bar" data-topbar>
+                <ul class="title-area">
+                  <li class="name">
+                    <a class="hdr-logo-link" href="/" title="Timber" rel="home">
+                      <h1 class="title">vermelho vivo</h1>
+                    </a>
+                  </li>
+                  <!-- Remove the class "menu-icon" to get rid of menu icon. Take out "Menu" to just have icon alone -->
+                  <li class="toggle-topbar menu-icon">
+                    <a href="#"><span>Menu</span></a>
+                  </li>
+                </ul>
+
+                <section class="top-bar-section">
+                  <!-- Right Nav Section -->
+                  <ul class="right">
+                    {% for item in menu.items %}
+                    <li id="menu-item-{{item.ID}}" class="{{item.classes | join(' ')}} menu-item menu-item-type-{{item.type}} menu-item-object-{{item.object}} menu-item-{{item.ID}}">
+                      <a href="{{item.link}}">{{item.title}}</a>
+                    </li>
+                    {% endfor %}
+                  </ul>
+                </section>
+              </nav><!-- #access -->
+            </div>
+        </header>
+
+        <a class="exit-off-canvas" href="#"></a>
+        {% block content %}
+
+        {% endblock %}
+
+        <footer id="footer">
+          {% include 'footer.twig' %}
+        </footer>
+        {{ function('wp_footer') }}
+
+      </div>
+    </div>
+    <script src="{{site.theme.link}}/bower_components/jquery/dist/jquery.min.js"></script>
+    <script src="{{site.theme.link}}/bower_components/foundation/js/foundation.min.js"></script>
+    <script src="{{site.theme.link}}/js/app.js"></script>
+    <script src="{{site.theme.link}}/js/site.js"></script>
+  </body>
+</html>

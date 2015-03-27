@@ -36,14 +36,18 @@ function load_scripts(){
     wp_enqueue_script('jquery');
 }
 
+
+
 /* esta function cria um segundo botão para o comment com a class=button para o foundation, precisa de apagar o outro botão no CSS */
 function so_comment_button() {
 
-  echo '<input name="submit" class="button tiny" type="submit" value="' . __( 'Post Comment', 'textdomain' ) . '" />';
+  echo '<input name="submit" class="button small" type="submit" value="' . __( 'Envía un Comentarí', 'textdomain' ) . '" />';
 
 }
 
 add_action( 'comment_form', 'so_comment_button' );
+
+
 
 /*----------EDITOR STYLE------------*/
 

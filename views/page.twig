@@ -7,19 +7,19 @@
     <!-- -----------TOP 3 - DESTAQUES -------------- -->
     <div class="row destaques">
       <div class="medium-4 columns">
-        <a href="{{site.link}}" class="tiny button expand radius destaque">
+        <a href="{{site.link}}/associat" class="tiny button expand radius destaque">
           <i class="fa fa-users fa-2x"></i>
           <p>Fet Soci</p>
         </a>
       </div>
       <div class="medium-4 columns">
-        <a href="{{site.link}}" class="tiny button expand radius destaque">
+        <a href="{{site.link}}/agenda" class="tiny button expand radius destaque">
           <i class="fa fa-calendar fa-2x"></i>
           <p>Agenda</p>
         </a>
       </div>
       <div class="medium-4 columns">
-        <a href="{{site.link}}" class="tiny button expand radius destaque">
+        <a href="{{site.link}}/us-sales" class="tiny button expand radius destaque">
           <i class="fa fa-home fa-2x"></i>
           <p>Lloga</p>
         </a>
@@ -36,8 +36,13 @@
               {{post.content}}
             </div>
           </section>
-
+          <div class="row single-foot">
+          <div class="small-12 columns share">
+              {{ function('kc_add_social_share') }} <!--social sharing plugin-->
+          </div>
+        </div>
         </article>
+
       </div>
     </div>
   </br>
@@ -48,28 +53,6 @@
 <!-- ----------- SIDEBAR -------------- -->
 <aside class="small-12 large-3 columns">
   <div class="sidebar">
-    <div class="widget">
-      {{function('get_search_form')}}
-      <div class="social">
-        <p>Segueix l’actualitat</p>
-        <ul>
-          <a><li class="#"><i class="fa fa-rss-square fa-2x"></i></li></a>
-          <a><li class="#"><i class="fa fa-twitter-square fa-2x"></i></li></a>
-          <a><li class="#"><i class="fa fa-facebook-square fa-2x"></i></li></a>
-          <a><li class="#"><i class="fa fa-envelope-square fa-2x"></i></li></a>
-        </ul>
-      </div>
-      <br/>
-      <div class="horari">
-        <p>Horari secretaria<br/><span class="info">
-          Dilluns a Dijous de 18 a 21h<br/>
-          (divendres no hi ha atenció al públic)<br/>
-          C/ Sant Joan nº 1<br/>
-          Telf: 93.588.33.77<br/>
-          Mail: info@crac.cat </span>
-        </p>
-      </div>
-    </div>
     {{widgets}}
   </div>
 </aside>

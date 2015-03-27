@@ -1,29 +1,8 @@
 {% extends "base.twig" %}
 
 {% block content %}
-<div class="row content-wrap">
-	<div class="large-9 columns">
-		<!--Top 3 - Destaques-->
-		<div class="row destaques">
-			<div class="medium-4 columns">
-				<a href="{{site.link}}" class="tiny button expand radius destaque">
-					<i class="fa fa-users fa-2x"></i>
-					<p>Fet Soci</p>
-				</a>
-			</div>
-			<div class="medium-4 columns">
-				<a href="{{site.link}}" class="tiny button expand radius destaque">
-					<i class="fa fa-calendar fa-2x"></i>
-					<p>Agenda</p>
-				</a>
-			</div>
-			<div class="medium-4 columns">
-				<a href="{{site.link}}" class="tiny button expand radius destaque">
-					<i class="fa fa-home fa-2x"></i>
-					<p>Lloga</p>
-				</a>
-			</div>
-		</div>
+
+</br>
 		<!--Columna Blog-->
 		<div class="row">
 			<div class="large-12 columns blog-col">
@@ -33,37 +12,8 @@
 				</div>
 			</div>
 		</div>
+
 	</br>
-</div>
 
-<!--SideBar-->
-<aside class="small-12 large-3 columns">
-	<div class="sidebar">
-		<div class="widget">
-			{{function('get_search_form')}}
-			<div class="social">
-				<p>Segueix l’actualitat</p>
-				<ul>
-					<a><li class="#"><i class="fa fa-rss-square fa-2x"></i></li></a>
-					<a><li class="#"><i class="fa fa-twitter-square fa-2x"></i></li></a>
-					<a><li class="#"><i class="fa fa-facebook-square fa-2x"></i></li></a>
-					<a><li class="#"><i class="fa fa-envelope-square fa-2x"></i></li></a>
-				</ul>
-			</div>
-			<br/>
-			<div class="horari">
-				<p>Horari secretaria<br/><span class="info">
-					Dilluns a Dijous de 18 a 21h<br/>
-					(divendres no hi ha atenció al públic)<br/>
-					C/ Sant Joan nº 1<br/>
-					Telf: 93.588.33.77<br/>
-					Mail: info@crac.cat </span>
-				</p>
-			</div>
-		</div>
-
-		<!--{{widgets}}-->
-	</div>
-</aside>
 </div>
 {% endblock %}
